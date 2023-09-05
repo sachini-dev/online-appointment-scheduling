@@ -14,5 +14,4 @@ public class ApplicantDetailsDTO {
     private String applicantName;
     private String applicantNIC;
     private String applicantTp;
-    private int appointmentType;
 }
