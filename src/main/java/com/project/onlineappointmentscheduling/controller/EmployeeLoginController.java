@@ -61,15 +61,15 @@ public class EmployeeLoginController {
             List<EmployeeLoginDTO> employeeLoginDTOList =
                     employeeLoginService.checkEmployeeByEmail(email);
             if (employeeLoginDTOList.isEmpty() || employeeLoginDTOList == null) {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("Employee-Not-Found");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            } else {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
-                responseDTO.setMessage("Employee-Not-Found-Ok");
+                responseDTO.setMessage("Employee-Found");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
-            } else {
-                responseDTO.setCode(ResponseList.RSP_FAIL);
-                responseDTO.setMessage("Employee-Found-Fail");
-                responseDTO.setContent(null);
-                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
             }
         } catch (Exception ex) {
             responseDTO.setCode(ResponseList.RSP_ERROR);
