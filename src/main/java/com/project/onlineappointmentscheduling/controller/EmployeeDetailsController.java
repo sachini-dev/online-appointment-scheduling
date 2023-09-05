@@ -214,10 +214,10 @@ public class EmployeeDetailsController {
         }
     }
 
-    @PostMapping("/checkEmployeeByEmail/{email}")
-    public ResponseEntity checkEmployeeByEmail(String email) {
+    @PostMapping("/empByEmail/{email}")
+    public ResponseEntity checkEmpExistsByEmail(@PathVariable String email) {
         try {
-            String response = employeeDetailsService.checkEmployeeByEmail(email);
+            String response = employeeDetailsService.checkEmpExistsByEmail(email);
             if (response.equals("00")) {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
                 responseDTO.setMessage("Employee Found!!!");
@@ -226,6 +226,31 @@ public class EmployeeDetailsController {
             } else {
                 responseDTO.setCode(ResponseList.RSP_NO_DATA_FOUND);
                 responseDTO.setMessage("Employee doesn't exist!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception ex) {
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("System Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping("/empType/{email}")
+    public ResponseEntity checkEmpType(@PathVariable String email) {
+        try {
+            EmployeeDetailsDTO employeeDetailsDTO =
+                    employeeDetailsService.viewEmployeeDetails(email);
+            if (employeeDetailsDTO != null) {
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("Employee Data By Email View Successfully!!");
+                responseDTO.setContent(employeeDetailsDTO.getEmpType());
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            } else {
+                responseDTO.setCode(ResponseList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("Employee Data By Email View Not Found!!");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
             }

@@ -70,7 +70,7 @@ public class EmployeeDetailsService {
             return ResponseList.RSP_NO_DATA_FOUND;
         }
     }
-    public String checkEmployeeByEmail(String email){
+    public String checkEmpExistsByEmail(String email){
         if (employeeDetailsRepository.existsById(email)){
             return ResponseList.RSP_SUCCESS;
         } else {

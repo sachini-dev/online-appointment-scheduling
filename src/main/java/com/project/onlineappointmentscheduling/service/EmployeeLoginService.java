@@ -1,8 +1,11 @@
 package com.project.onlineappointmentscheduling.service;
 
+import com.project.onlineappointmentscheduling.dto.EmployeeDetailsDTO;
 import com.project.onlineappointmentscheduling.dto.EmployeeLoginDTO;
+import com.project.onlineappointmentscheduling.entity.EmployeeDetails;
 import com.project.onlineappointmentscheduling.entity.EmployeeLogin;
 import com.project.onlineappointmentscheduling.repository.EmployeeLoginRepository;
+import com.project.onlineappointmentscheduling.util.ResponseList;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,4 +36,11 @@ public class EmployeeLoginService {
         return modelMapper.map(employeeLoginList,new TypeToken<ArrayList<EmployeeLoginDTO>>(){
         }.getType());
     }
+
+    public String saveEmpLogin(EmployeeLoginDTO employeeLoginDTO){
+        employeeLoginRepository.save(modelMapper.map(employeeLoginDTO, EmployeeLogin.class));
+        return ResponseList.RSP_SUCCESS;
+    }
+
+
 }

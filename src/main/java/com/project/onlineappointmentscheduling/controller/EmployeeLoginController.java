@@ -1,5 +1,6 @@
 package com.project.onlineappointmentscheduling.controller;
 
+import com.project.onlineappointmentscheduling.dto.EmployeeDetailsDTO;
 import com.project.onlineappointmentscheduling.dto.EmployeeLoginDTO;
 import com.project.onlineappointmentscheduling.dto.ResponseDTO;
 import com.project.onlineappointmentscheduling.service.EmployeeLoginService;
@@ -75,6 +76,37 @@ public class EmployeeLoginController {
             responseDTO.setCode(ResponseList.RSP_ERROR);
             responseDTO.setMessage("Database-Error");
             //System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PostMapping(value = "/saveEmpLogin")
+    public ResponseEntity saveEmpLogin(@RequestBody EmployeeLoginDTO employeeLoginDTO){
+        try {
+            String response = employeeLoginService.saveEmpLogin(employeeLoginDTO);
+            if (response.equals("00")){
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("Employee Login Save Successfully!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            } else if(response.equals("06")) {
+                responseDTO.setCode(ResponseList.RSP_DUPLICATED);
+                responseDTO.setMessage("Employee Login Already Registered!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+
+            } else {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("Employee Login Save Error!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (Exception ex) {
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
             responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
