@@ -1,6 +1,5 @@
 package com.project.onlineappointmentscheduling.controller;
 
-import com.project.onlineappointmentscheduling.dto.EmployeeDetailsDTO;
 import com.project.onlineappointmentscheduling.dto.EmployeeLoginDTO;
 import com.project.onlineappointmentscheduling.dto.ResponseDTO;
 import com.project.onlineappointmentscheduling.service.EmployeeLoginService;
