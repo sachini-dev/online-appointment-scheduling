@@ -31,7 +31,7 @@ public class ApplicantLoginController {
 
             if (applicantLoginDTOList.isEmpty() || applicantLoginDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_NOT_AUTHORISED);
-                responseDTO.setMessage("LOGIN-FALL 456");
+                responseDTO.setMessage("LOGIN-FALL");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.FORBIDDEN);
             } else if (applicantLoginDTOList.size() == 1) {
