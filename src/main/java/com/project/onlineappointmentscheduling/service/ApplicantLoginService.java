@@ -1,6 +1,8 @@
 package com.project.onlineappointmentscheduling.service;
 
+import com.project.onlineappointmentscheduling.dto.ApplicantDetailsDTO;
 import com.project.onlineappointmentscheduling.dto.ApplicantLoginDTO;
+import com.project.onlineappointmentscheduling.entity.ApplicantDetails;
 import com.project.onlineappointmentscheduling.entity.ApplicantLogin;
 import com.project.onlineappointmentscheduling.repository.ApplicantLoginRepository;
 import com.project.onlineappointmentscheduling.util.ResponseList;
@@ -27,6 +29,16 @@ public class ApplicantLoginService {
         List<ApplicantLogin> applicantLoginList = applicantLoginRepository.userLoginVerify(email,password);
         return modelMapper.map(applicantLoginList,new TypeToken<ArrayList<ApplicantLoginDTO>>(){
         }.getType());
+    }
+
+    public String saveApplicantLogin(ApplicantLoginDTO applicantLoginDTO){
+        if (applicantLoginRepository.existsById(applicantLoginDTO.getApplicantEmail())){
+            return ResponseList.RSP_DUPLICATED;
+        } else {
+            applicantLoginRepository.save(modelMapper.map
+                    (applicantLoginDTO, ApplicantLogin.class));
+            return ResponseList.RSP_SUCCESS;
+        }
     }
 
 }

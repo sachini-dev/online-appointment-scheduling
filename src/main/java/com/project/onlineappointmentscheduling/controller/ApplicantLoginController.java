@@ -55,4 +55,35 @@ public class ApplicantLoginController {
         }
     }
 
+    @PostMapping(value = "/saveLogin")
+    public ResponseEntity saveLogin(@RequestBody ApplicantLoginDTO applicantLoginDTO){
+        try {
+            String response = applicantLoginService.saveApplicantLogin(applicantLoginDTO);
+            if (response.equals("00")){
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("Applicant Login Save Successfully!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            } else if(response.equals("06")) {
+                responseDTO.setCode(ResponseList.RSP_DUPLICATED);
+                responseDTO.setMessage("Applicant Login Already Registered!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+
+            } else {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("Applicant Login Save Error!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (Exception ex) {
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
