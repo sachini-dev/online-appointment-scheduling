@@ -1,6 +1,7 @@
 package com.project.onlineappointmentscheduling.controller;
 
 import com.project.onlineappointmentscheduling.dto.ApplicantAppointmentDetailsDTO;
+import com.project.onlineappointmentscheduling.dto.ApplicantAppointmentsAllDTO;
 import com.project.onlineappointmentscheduling.dto.EmployeeDetailsDTO;
 import com.project.onlineappointmentscheduling.dto.ResponseDTO;
 import com.project.onlineappointmentscheduling.service.ApplicantAppointmentDetailsService;
@@ -60,9 +61,9 @@ public class ApplicantAppointmentDetailsController {
     @PostMapping(value = "/getAllApp")
     public ResponseEntity getAllAppointmentDetails(){
         try {
-            List<ApplicantAppointmentDetailsDTO> applicantAppointmentDetailsDTOList =
-                    applicantAppointmentDetailsService.getAllAppointmentDetails();
-            if (applicantAppointmentDetailsDTOList.isEmpty() || applicantAppointmentDetailsDTOList == null) {
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAllAppointments();
+            if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_FAIL);
                 responseDTO.setMessage("All Employee Data View Not Found!!!");
                 responseDTO.setContent(null);
@@ -70,7 +71,7 @@ public class ApplicantAppointmentDetailsController {
             } else {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
                 responseDTO.setMessage("All Employee Data View Successfully!!");
-                responseDTO.setContent(applicantAppointmentDetailsDTOList);
+                responseDTO.setContent(applicantAppointmentsAllDTOList);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             }
 

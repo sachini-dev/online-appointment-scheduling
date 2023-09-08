@@ -12,6 +12,7 @@ public class ApplicantAppointmentsAllDTO {
     private int appointmentType;
     private String applicantName;
     private String applicantNIC;
+    private String applicantTp;
     private String appointmentDetails;
-    
+
 }

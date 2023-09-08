@@ -1,9 +1,9 @@
 package com.project.onlineappointmentscheduling.service;
 
 import com.project.onlineappointmentscheduling.dto.ApplicantAppointmentDetailsDTO;
+import com.project.onlineappointmentscheduling.dto.ApplicantAppointmentsAllDTO;
 import com.project.onlineappointmentscheduling.dto.EmployeeDetailsDTO;
 import com.project.onlineappointmentscheduling.entity.ApplicantAppointmentDetails;
-import com.project.onlineappointmentscheduling.entity.EmployeeDetails;
 import com.project.onlineappointmentscheduling.repository.ApplicantAppointmentDetailsRepository;
 import com.project.onlineappointmentscheduling.util.ResponseList;
 import org.modelmapper.ModelMapper;
@@ -35,11 +35,11 @@ public class ApplicantAppointmentDetailsService {
         }
     }
 
-    public List<ApplicantAppointmentDetailsDTO> getAllAppointmentDetails(){
-        List<ApplicantAppointmentDetails> applicantAppointmentDetailsList =
-                applicantAppointmentDetailsRepository.findAll();
-        return modelMapper.map(applicantAppointmentDetailsList,new TypeToken<ArrayList
-                <ApplicantAppointmentDetailsDTO>>(){
+    public List<ApplicantAppointmentsAllDTO> getAllAppointments(){
+        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                applicantAppointmentDetailsRepository.viewAllAppointment();
+        return modelMapper.map(applicantAppointmentsAllDTOList,
+                new TypeToken<ArrayList<ApplicantAppointmentsAllDTO>>(){
         }.getType());
     }
 }
