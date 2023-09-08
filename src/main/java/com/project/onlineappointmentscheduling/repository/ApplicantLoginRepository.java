@@ -1,7 +1,6 @@
 package com.project.onlineappointmentscheduling.repository;
 
-import com.project.onlineappointmentscheduling.entity.ApplicantLogin;
-import com.project.onlineappointmentscheduling.entity.EmployeeLogin;
+import com.project.onlineappointmentscheduling.entity.ApplicantLogin;;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

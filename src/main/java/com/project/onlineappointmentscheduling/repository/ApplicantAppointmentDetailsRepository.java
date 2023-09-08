@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ApplicantAppointmentDetailsRepository extends JpaRepository<ApplicantAppointmentDetails, String> {
 
+
 }

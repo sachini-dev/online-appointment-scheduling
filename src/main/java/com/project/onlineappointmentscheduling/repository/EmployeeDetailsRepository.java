@@ -1,7 +1,6 @@
 package com.project.onlineappointmentscheduling.repository;
 
 import com.project.onlineappointmentscheduling.entity.EmployeeDetails;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
