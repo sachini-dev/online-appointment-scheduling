@@ -38,12 +38,21 @@ public class ApplicantAppointmentDetailsService {
     public List<ApplicantAppointmentsAllDTO> getAllAppointments(){
         List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
                 applicantAppointmentDetailsRepository.viewAllAppointment();
-        applicantAppointmentsAllDTOList.forEach(li -> System.out.println(li));
-
         return applicantAppointmentsAllDTOList;
 
-        //return modelMapper.map(applicantAppointmentsAllDTOList, new TypeToken<ArrayList<ApplicantAppointmentsAllDTO>>(){
-       // }.getType());
+    }
+
+    public List<ApplicantAppointmentsAllDTO> getAppointmentById(String appointmentId){
+        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                applicantAppointmentDetailsRepository.getAppointmentById(appointmentId);
+        return applicantAppointmentsAllDTOList;
+
+    }
+
+    public List<ApplicantAppointmentsAllDTO> getAppointmentByType(int appointmentType){
+        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                applicantAppointmentDetailsRepository.getAppointmentByType(appointmentType);
+        return applicantAppointmentsAllDTOList;
 
     }
 }

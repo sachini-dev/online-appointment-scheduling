@@ -65,39 +65,68 @@ public class ApplicantAppointmentDetailsController {
                     applicantAppointmentDetailsService.getAllAppointments();
             if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_FAIL);
-                responseDTO.setMessage("All Employee Data View Not Found!!!");
+                responseDTO.setMessage("All Appointment Data View Not Found!!!");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
             } else {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
-                responseDTO.setMessage("All Employee Data View Successfully!!");
+                responseDTO.setMessage("All Appointment Data View Successfully!!");
                 responseDTO.setContent(applicantAppointmentsAllDTOList);
+                System.out.println(applicantAppointmentsAllDTOList);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             }
 
         }catch (Exception ex){
             responseDTO.setCode(ResponseList.RSP_ERROR);
             responseDTO.setMessage("Database Error!!!");
-            //System.out.println(ex.getMessage());
+            System.out.println(ex.getMessage());
             responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
     }
 
-    @PostMapping(value = "/getAllApp2")
-    public ResponseEntity getAllAppointmentDetails2(){
-        //List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList = null;
+    @PostMapping(value = "/getAppById/{id}")
+    public ResponseEntity getAllAppointmentDetails(@PathVariable String id){
         try {
-            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList = applicantAppointmentDetailsService.getAllAppointments();
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAppointmentById(id);
             if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_FAIL);
-                responseDTO.setMessage("All Employee Data View Not Found!!!");
+                responseDTO.setMessage("All Appointment Data View Not Found!!!");
                 responseDTO.setContent(null);
                 return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
             } else {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
-                responseDTO.setMessage("All Employee Data View Successfully!!");
+                responseDTO.setMessage("All Appointment Data View Successfully!!");
+                responseDTO.setContent(applicantAppointmentsAllDTOList);
+                System.out.println(applicantAppointmentsAllDTOList);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+
+        }catch (Exception ex){
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
+    @PostMapping(value = "/getAppByType/{type}")
+    public ResponseEntity getAllAppointmentDetails(@PathVariable int type){
+        try {
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAppointmentByType(type);
+            if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("All Appointment Data View Not Found!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            } else {
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("All Appointment Data View Successfully!!");
                 responseDTO.setContent(applicantAppointmentsAllDTOList);
                 System.out.println(applicantAppointmentsAllDTOList);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
