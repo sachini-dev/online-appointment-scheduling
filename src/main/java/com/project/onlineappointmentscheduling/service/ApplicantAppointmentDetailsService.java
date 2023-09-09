@@ -35,6 +35,17 @@ public class ApplicantAppointmentDetailsService {
         }
     }
 
+    public String updateAppointmentDetails(ApplicantAppointmentDetailsDTO applicantAppointmentDetailsDTO){
+        if (applicantAppointmentDetailsRepository.existsById(applicantAppointmentDetailsDTO.getAppointmentId())){
+            applicantAppointmentDetailsRepository.save(modelMapper.map
+                    (applicantAppointmentDetailsDTO, ApplicantAppointmentDetails.class));
+            return ResponseList.RSP_SUCCESS;
+        } else {
+            return ResponseList.RSP_NO_DATA_FOUND;
+
+        }
+    }
+
     public List<ApplicantAppointmentsAllDTO> getAllAppointments(){
         List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
                 applicantAppointmentDetailsRepository.viewAllAppointment();

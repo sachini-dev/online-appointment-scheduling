@@ -58,6 +58,39 @@ public class ApplicantAppointmentDetailsController {
         }
     }
 
+    @PostMapping(value = "/updateApp")
+    public ResponseEntity updateAppointmentDetails
+            (@RequestBody ApplicantAppointmentDetailsDTO applicantAppointmentDetailsDTO){
+        try {
+            String response =
+                    applicantAppointmentDetailsService.updateAppointmentDetails(applicantAppointmentDetailsDTO);
+            if (response.equals("00")){
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("Appointment Update Successfully!!");
+                responseDTO.setContent(applicantAppointmentDetailsDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            } else if(response.equals("01")) {
+                responseDTO.setCode(ResponseList.RSP_NO_DATA_FOUND);
+                responseDTO.setMessage("Appointment ID Not Found!!");
+                responseDTO.setContent(applicantAppointmentDetailsDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+
+            } else {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("Appointment Update Error!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (Exception ex) {
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(value = "/getAllApp")
     public ResponseEntity getAllAppointmentDetails(){
         try {
