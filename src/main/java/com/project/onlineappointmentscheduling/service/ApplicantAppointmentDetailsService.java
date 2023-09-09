@@ -38,11 +38,12 @@ public class ApplicantAppointmentDetailsService {
     public List<ApplicantAppointmentsAllDTO> getAllAppointments(){
         List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
                 applicantAppointmentDetailsRepository.viewAllAppointment();
-        //System.out.println(""+applicantAppointmentsAllDTOList);
-        //return applicantAppointmentsAllDTOList;
-        return modelMapper.map(applicantAppointmentsAllDTOList,
-        new TypeToken<ArrayList<ApplicantAppointmentsAllDTO>>(){
-        }.getType());
+        applicantAppointmentsAllDTOList.forEach(li -> System.out.println(li));
+
+        return applicantAppointmentsAllDTOList;
+
+        //return modelMapper.map(applicantAppointmentsAllDTOList, new TypeToken<ArrayList<ApplicantAppointmentsAllDTO>>(){
+       // }.getType());
 
     }
 }

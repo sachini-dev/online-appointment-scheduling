@@ -9,6 +9,11 @@ import java.util.List;
 
 public interface ApplicantAppointmentDetailsRepository extends JpaRepository<ApplicantAppointmentDetails, String> {
 
-    @Query(value = "SELECT `aad`.`appointment_id`,`aad`.`appointment_type`,`ad`.`applicant_name`,`ad`.`applicantnic`,`ad`.`applicant_tp`,`aad`.`appointment_details` FROM `applicant_appointment_details` `aad`,`applicant_details` `ad` WHERE `aad`.`applicant_email`=`ad`.`applicant_email`",nativeQuery = true)
+    @Query(value = "SELECT " +
+            "new com.project.onlineappointmentscheduling.dto.ApplicantAppointmentsAllDTO" +
+            "(aad.appointmentId,aad.appointmentType,ad.applicantName,ad.applicantNIC,ad.applicantTp," +
+            "aad.appointmentDetails) " +
+            "FROM ApplicantAppointmentDetails AS aad INNER JOIN ApplicantDetails AS ad " +
+            "ON aad.applicantEmail = ad.applicantEmail WHERE aad.appointmentId='455'")
     public List<ApplicantAppointmentsAllDTO> viewAllAppointment();
 }

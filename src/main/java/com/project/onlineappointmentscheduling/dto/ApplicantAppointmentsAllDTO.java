@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class ApplicantAppointmentsAllDTO {
     private String appointmentId;
@@ -15,4 +14,12 @@ public class ApplicantAppointmentsAllDTO {
     private String applicantTp;
     private String appointmentDetails;
 
+    public ApplicantAppointmentsAllDTO(String appointmentId, int appointmentType, String applicantName, String applicantNIC, String applicantTp, String appointmentDetails) {
+        this.appointmentId = appointmentId;
+        this.appointmentType = appointmentType;
+        this.applicantName = applicantName;
+        this.applicantNIC = applicantNIC;
+        this.applicantTp = applicantTp;
+        this.appointmentDetails = appointmentDetails;
+    }
 }

@@ -87,9 +87,9 @@ public class ApplicantAppointmentDetailsController {
 
     @PostMapping(value = "/getAllApp2")
     public ResponseEntity getAllAppointmentDetails2(){
-        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList = null;
+        //List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList = null;
         try {
-            applicantAppointmentsAllDTOList = applicantAppointmentDetailsService.getAllAppointments();
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList = applicantAppointmentDetailsService.getAllAppointments();
             if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_FAIL);
                 responseDTO.setMessage("All Employee Data View Not Found!!!");
@@ -107,7 +107,7 @@ public class ApplicantAppointmentDetailsController {
             responseDTO.setCode(ResponseList.RSP_ERROR);
             responseDTO.setMessage("Database Error!!!");
             System.out.println(ex.getMessage());
-            responseDTO.setContent(applicantAppointmentsAllDTOList);
+            responseDTO.setContent(null);
             return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
