@@ -84,4 +84,31 @@ public class ApplicantAppointmentDetailsController {
 
         }
     }
+
+    @PostMapping(value = "/getAllApp2")
+    public ResponseEntity getAllAppointmentDetails2(){
+        try {
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAllAppointments();
+            if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("All Employee Data View Not Found!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            } else {
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("All Employee Data View Successfully!!");
+                responseDTO.setContent(applicantAppointmentsAllDTOList);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+
+        }catch (Exception ex){
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            //System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
 }
