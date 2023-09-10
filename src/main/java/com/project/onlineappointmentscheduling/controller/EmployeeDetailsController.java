@@ -168,7 +168,7 @@ public class EmployeeDetailsController {
     @PostMapping("/viewEmpByEmail/{empEmail}")
     public ResponseEntity viewEmployeeDetails(@PathVariable String empEmail){
         try {
-            EmployeeDetailsDTO employeeDetailsDTO =
+            List<EmployeeDetailsDTO> employeeDetailsDTO =
                     employeeDetailsService.viewEmployeeDetails(empEmail);
             if (employeeDetailsDTO != null) {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
@@ -241,12 +241,12 @@ public class EmployeeDetailsController {
     @PostMapping("/empType/{email}")
     public ResponseEntity checkEmpType(@PathVariable String email) {
         try {
-            EmployeeDetailsDTO employeeDetailsDTO =
+            List<EmployeeDetailsDTO> employeeDetailsDTO =
                     employeeDetailsService.viewEmployeeDetails(email);
             if (employeeDetailsDTO != null) {
                 responseDTO.setCode(ResponseList.RSP_SUCCESS);
                 responseDTO.setMessage("Employee Data By Email View Successfully!!");
-                responseDTO.setContent(employeeDetailsDTO.getEmpType());
+                responseDTO.setContent(employeeDetailsDTO);
                 return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
             } else {
                 responseDTO.setCode(ResponseList.RSP_NO_DATA_FOUND);

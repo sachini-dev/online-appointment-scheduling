@@ -12,6 +12,9 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
     @Query(value = "SELECT * FROM `employee_details` WHERE `empnic` =?1",nativeQuery = true)
     public List<EmployeeDetails> getEmployeeDetailsByNIC(String nic);
 
+    @Query(value = "SELECT * FROM `employee_details` WHERE `emp_email` =?1",nativeQuery = true)
+    public List<EmployeeDetails> getEmployeeDetailsByEmail(String emila);
+
     @Query(value = "SELECT * FROM `employee_details` WHERE NOT `emp_type`= '1'",nativeQuery = true)
     public List<EmployeeDetails> getAllEmployeeWithoutAdmin();
 

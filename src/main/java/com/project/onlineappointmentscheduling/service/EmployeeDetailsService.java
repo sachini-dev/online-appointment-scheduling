@@ -54,10 +54,12 @@ public class EmployeeDetailsService {
         return modelMapper.map(employeeDetailsList,new TypeToken<ArrayList<EmployeeDetailsDTO>>(){
         }.getType());
     }
-    public EmployeeDetailsDTO viewEmployeeDetails(String empEmpEmail){
+    public List<EmployeeDetailsDTO> viewEmployeeDetails(String empEmpEmail){
         if (employeeDetailsRepository.existsById(empEmpEmail)){
-            EmployeeDetails employeeDetails = employeeDetailsRepository.findById(empEmpEmail).orElse(null);
-            return modelMapper.map(employeeDetails, EmployeeDetailsDTO.class);
+            List<EmployeeDetails> employeeDetailsList =
+                    employeeDetailsRepository.getEmployeeDetailsByEmail(empEmpEmail);
+            return modelMapper.map(employeeDetailsList,new TypeToken<ArrayList<EmployeeDetailsDTO>>(){
+            }.getType());
         } else {
             return null;
         }
