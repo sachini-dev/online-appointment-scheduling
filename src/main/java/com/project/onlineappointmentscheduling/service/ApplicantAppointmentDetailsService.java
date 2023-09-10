@@ -66,4 +66,18 @@ public class ApplicantAppointmentDetailsService {
         return applicantAppointmentsAllDTOList;
 
     }
+
+    public List<ApplicantAppointmentsAllDTO> getAppointmentByTypeEmail(int appointmentType,String email){
+        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                applicantAppointmentDetailsRepository.getAppointmentByTypeEmail(appointmentType,email);
+        return applicantAppointmentsAllDTOList;
+
+    }
+
+    public List<ApplicantAppointmentsAllDTO> getAppointmentByEmail(String email){
+        List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                applicantAppointmentDetailsRepository.getAppointmentByEmail(email);
+        return applicantAppointmentsAllDTOList;
+
+    }
 }

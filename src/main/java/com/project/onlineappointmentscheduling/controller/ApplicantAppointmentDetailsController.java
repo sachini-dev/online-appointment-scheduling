@@ -148,10 +148,66 @@ public class ApplicantAppointmentDetailsController {
     }
 
     @PostMapping(value = "/getAppByType/{type}")
-    public ResponseEntity getAllAppointmentDetails(@PathVariable int type){
+    public ResponseEntity getAppointmentByType(@PathVariable int type){
         try {
             List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
                     applicantAppointmentDetailsService.getAppointmentByType(type);
+            if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("All Appointment Data View Not Found!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            } else {
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("All Appointment Data View Successfully!!");
+                responseDTO.setContent(applicantAppointmentsAllDTOList);
+                System.out.println(applicantAppointmentsAllDTOList);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+
+        }catch (Exception ex){
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
+    @PostMapping(value = "/getAppByTypeEmail/{type}/{email}")
+    public ResponseEntity getAppointmentByTypeEmail(@PathVariable int type, @PathVariable String email){
+        try {
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAppointmentByTypeEmail(type,email);
+            if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("All Appointment Data View Not Found!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_FOUND);
+            } else {
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("All Appointment Data View Successfully!!");
+                responseDTO.setContent(applicantAppointmentsAllDTOList);
+                System.out.println(applicantAppointmentsAllDTOList);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+            }
+
+        }catch (Exception ex){
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        }
+    }
+
+    @PostMapping(value = "/getAppByEmail/{email}")
+    public ResponseEntity getAppointmentByTypeEmail(@PathVariable String email){
+        try {
+            List<ApplicantAppointmentsAllDTO> applicantAppointmentsAllDTOList =
+                    applicantAppointmentDetailsService.getAppointmentByEmail(email);
             if (applicantAppointmentsAllDTOList.isEmpty() || applicantAppointmentsAllDTOList == null) {
                 responseDTO.setCode(ResponseList.RSP_FAIL);
                 responseDTO.setMessage("All Appointment Data View Not Found!!!");
