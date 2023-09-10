@@ -33,4 +33,9 @@ public class ApplicantDetailsService {
         }
     }
 
+    public String saveApplicantDetails2(ApplicantDetailsDTO applicantDetailsDTO){
+        applicantDetailsRepository.save(modelMapper.map
+                (applicantDetailsDTO, ApplicantDetails.class));
+        return ResponseList.RSP_SUCCESS;
+    }
 }

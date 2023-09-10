@@ -56,4 +56,37 @@ public class ApplicantDetailsController {
         }
     }
 
+    @PostMapping(value = "/saveAppl2")
+    public ResponseEntity saveApplicantDetails2
+            (@RequestBody ApplicantDetailsDTO applicantDetailsDTO){
+        try {
+            String response =
+                    applicantDetailsService.saveApplicantDetails2(applicantDetailsDTO);
+            if (response.equals("00")){
+                responseDTO.setCode(ResponseList.RSP_SUCCESS);
+                responseDTO.setMessage("Applicant Save Successfully!!");
+                responseDTO.setContent(applicantDetailsDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.ACCEPTED);
+
+            } else if(response.equals("06")) {
+                responseDTO.setCode(ResponseList.RSP_DUPLICATED);
+                responseDTO.setMessage("Applicant Already Registered!!");
+                responseDTO.setContent(applicantDetailsDTO);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+
+            } else {
+                responseDTO.setCode(ResponseList.RSP_FAIL);
+                responseDTO.setMessage("Applicant Save Error!!!");
+                responseDTO.setContent(null);
+                return new ResponseEntity(responseDTO, HttpStatus.NOT_ACCEPTABLE);
+            }
+        } catch (Exception ex) {
+            responseDTO.setCode(ResponseList.RSP_ERROR);
+            responseDTO.setMessage("Database Error!!!");
+            System.out.println(ex.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
